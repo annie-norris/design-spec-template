@@ -1,0 +1,26 @@
+#!/bin/sh
+# Checks staged spec changes against README.md's template before allowing a commit.
+# Installed via: git config core.hooksPath .githooks  (run once per clone)
+
+GIT=git
+if ! "$GIT" rev-parse --show-toplevel >/dev/null 2>&1; then
+    GIT=/usr/bin/git
+fi
+REPO_ROOT=$("$GIT" rev-parse --show-toplevel)
+[ -n "$REPO_ROOT" ] && cd "$REPO_ROOT" || exit 1
+
+PY=python3
+if ! "$PY" -c "" >/dev/null 2>&1; then
+    PY=/usr/bin/python3
+fi
+
+"$PY" scripts/check_specs.py
+STATUS=$?
+
+if [ $STATUS -ne 0 ]; then
+    echo ""
+    echo "Pre-commit check failed: specs don't match README.md's template."
+    echo "Fix the issues above, or skip this check with 'git commit --no-verify'."
+fi
+
+exit $STATUS
