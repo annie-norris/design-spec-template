@@ -29,13 +29,16 @@ Below is the template you should follow. It includes the section headers, instru
 
 Flag anything unresolved as a blockquote (a line starting with `>`), wherever in the document it comes up — a missing piece of data, an assumption that needs confirming, a note you're not sure how to resolve. This is a standing convention across every finished spec, not just while we're drafting: when a spec gets handed to the PM, every `>` line in it is a question still waiting on an answer, and the PM's AI assistant should prompt the PM directly on each one rather than letting them get silently skipped over.
 
+The spec is read top to bottom, so write it to make sense in that order. When a section mentions something that's detailed later, point forward to where ("see Constraints › Behavior", "see Open Question 2") rather than leaving the reader to wonder. When reviewing a spec, check every `>` note — especially designer notes — against the rest of the document: if a later section already answers it, replace the note with a short statement and a pointer to that section; if it's still unanswered, leave it as a `>` question.
+
 ## Template
 
 ### Project Title
 
 Instructions:
 - Two tables. The first is document metadata; the second is who owns the work and where each owner stands.
-- Prototype/Designs is not a separate field — exploration artifacts, mockups, and prototypes go under Contextual Documents alongside research and background docs. Handoff Link is the one link field reserved for the current design artifact (whichever is current: still exploring, or the final handoff file).
+- Prototype/Designs is not a separate field — exploration artifacts, mockups, and prototypes go under Contextual Documents alongside research and background docs. Handoff Link is reserved for the final handoff artifact once there is one.
+- Figma File is the project's working Figma file — where the design work for this spec lives, from first exploration onward. Link it by name, e.g. `[Pace Estimates](https://www.figma.com/design/...)`. If no file exists yet, write "None yet" — never leave blank.
 
 Template:
 | Field | Value |
@@ -47,7 +50,8 @@ Template:
 | Research Status | Description (Not Started, Discovery, Definition, Ideation, Prototyping, Validation, Complete) |
 | Handoff Due Date | Date |
 | Handoff recipient | Developer(s) |
-| Handoff Link | Link to the current design artifact |
+| Handoff Link | Link to the final handoff artifact, or "None yet" |
+| Figma File | Named link to the project's working Figma file |
 
 | Role | Status |
 | :---- | :---- |
@@ -59,19 +63,16 @@ Template:
 ### Problem Statement
 
 Instructions:
-- Limit redundancy. Clearly frame who is affected, what the problem is, and why it matters, while deliberately avoiding any description of the solution at this stage.
-- During the discovery/definition phase, naming a solution early narrows exploration and biases the work before the problem is validated. Implementation and requirements should be included in the deliverables and constraints respectively, not here.
-- Keep it to a single paragraph, three to four sentences. Lead with the concrete moment the problem shows up (a season, an event, a comparison) rather than an abstract definition of it — let that moment imply why it matters instead of spelling it out as a separate clause.
-- Name every user type who actually feels the problem in that same paragraph, not just the most obvious one.
-- Possible reasons to justify the problem include: users have given feedback that this is what they want, business is saying we need it, and/or other competitors have it, etc.
+- Two sentences, no more. The first describes the concrete moment the problem shows up for the primary user (a run, a race, a season) and the workaround they're stuck with today. The second names the question they can't answer — ideally in their own words, in quotes.
+- Deliberately avoid any description of the solution. During the discovery/definition phase, naming a solution early narrows exploration and biases the work before the problem is validated. Implementation and requirements belong in Deliverables and Constraints respectively, not here.
+- Keep everything else out. Why the domain matters, statistics on who's hit hardest, secondary users who feel the same gap, and the business justification (user feedback, business direction, competitors) all go in Additional Context. Other user types are covered in User Stories and Audience.
 - Make sure questions are answered before moving on. Prompt me to answer these questions if they aren't.
 Source to consider: [Nielsen Norman Group Problem Statement Article](https://www.nngroup.com/articles/problem-statements/)
 
 Example:
-Right now, Stride doesn't surface a runner's milestones in one cohesive, easy-to-find place. To keep people running, we want to reward showing up as well as commitment and performance. Stride also wants a way for clubs to share achievements, creating a shared language of milestones and progress.
+A runner who has just finished a strong training run has to guess what that effort means at another race distance, usually by asking a coach or club-mate and getting a different answer each time. No view currently answers "what could I run in a 10K off this?"
 
-Tightened alternative (user–need–outcome format):
-Runners — and the coaches and club members who follow them — need a consistent way to see and celebrate progress so that meaningful milestones keep them running.
+What moved out of that example into Additional Context: that coaches field the same question again and again, that club members comparing results have no shared reference point, and that competitor apps already show this and it's one of the most requested features.
 
 ### User Stories
 
@@ -116,24 +117,23 @@ Example:
 ### Deliverables
 
 Instructions:
-- List what's actually being asked for — the named screens/components/assets, not their detailed behavior (that belongs in Constraints).
-- Open with one sentence describing the overall ask. Then a bullet on scope: is this new or iterative, and does it replace anything existing — state this explicitly even when the answer is "nothing replaces an existing screen," since it's a boundary the contractor needs.
-- Then one bullet per named deliverable: a short bold label, followed by a one-line description. Keep each deliverable to a single line; anything more detailed belongs in Constraints.
+- Organize by where the work lives in the product. Each top-level bullet is a location — a bold name marked **(existing)** or **(new)** — followed by a plain-language line on what that place answers for the user. Marking every location existing or new states the scope, so no separate scope note is needed; say there if an existing screen is only partly updated.
+- Under each location, sub-bullets list the named screens, components, states, and assets that belong there — a short bold label and a one-line description. List each deliverable once, under the one location it belongs to. Detailed behavior belongs in Constraints; point to it rather than repeating it ("see Constraints › Behavior").
+- If where a new feature lives hasn't been decided — the designer is expected to propose it — make the top-level bullet **Location to be decided (new)**, list the deliverables under it as usual, and add an Open Question asking where it should live, with any placement candidates the PM has mentioned.
 
 Template:
-[One-sentence overview of what's needed.]
-
-- [Scope note: new vs. iterative, what if anything is replaced]
-- **[Deliverable 1 name]** — [one-line description]
-- **[Deliverable 2 name]** — [one-line description]
+- **[Location name] (existing | new)** — [what this place answers for the user]
+   - **[Deliverable name]** — [one-line description]
+   - **[Deliverable name]** — [one-line description]
+- **Location to be decided (new)** — [what the feature answers for the user]
+   - **[Deliverable name]** — [one-line description]
 
 Example:
-A collapsible Pace Estimate section at the bottom of the existing activity detail screen.
-
-- New section added to an existing screen; nothing is replaced.
-- **Collapsible section** — sits at the bottom of the activity detail.
-- **Estimate table** — the runner's actual time beside the estimated finish-time range for other race distances.
-- **Responsive screens** — web and mobile app, across all breakpoints.
+- **Activity detail (existing)** — what a single run suggests about the runner's pace at other race distances
+   - The activity detail already exists; only a section is added at the bottom.
+   - **Pace Estimates section** — collapsible, closed by default.
+   - **Estimate table** — the runner's actual time beside an estimated range for each other race distance.
+   - **Empty states** — one for activities that will never get an estimate, one for activities still waiting on one.
 
 ### Success & Failure Criteria
 
@@ -166,7 +166,8 @@ Example:
 ### Non-goals
 
 Instructions:
-- A short list of what this work is deliberately not — the boundaries a reader might otherwise assume are included. Feature-level, one line each, with a few words on why where it isn't obvious.
+- A short list of what this work is deliberately not — the boundaries a reader might otherwise assume are included. Feature-level, one short line each. Add a reason only when the boundary would be misread without it.
+- Check each non-goal against every deliverable — a non-goal phrased around one surface (e.g. "only for that activity") can contradict another (a view of the runner's overall progress).
 - Do not duplicate Constraints. A specific rule about the design ("no X this phase," "cannot Y") belongs in the matching Constraints category; Non-goals is only for the broader "this is not a redesign of Z" or "this is not for audience Y" statements. If the same fact is in both places, keep the Constraint and cut it here.
 - Not a place for open questions — if it is undecided, it belongs in Open Questions or a blockquote.
 
@@ -194,6 +195,9 @@ Example:
 
 Instructions:
 - Background that doesn't fit anywhere else — domain knowledge the contractor needs to follow the rest of the document (what is this thing, how does it fit the broader product), and/or the reasoning behind a specific decision or constraint when knowing "why" will help the contractor make good calls on edge cases the brief doesn't cover.
+- This is also where the "why it matters" lives that was kept out of the Problem Statement: why the domain matters to users, statistics on who's hit hardest, secondary users who feel the same gap, and the business justification. Put it first, as plain paragraphs before any bolded rationale headings.
+- Don't add rationale that only restates something the reader can already see — a split already visible in Deliverables, or a layout choice already explained by Data. Don't repeat a fact that already sits in Constraints, even as background.
+- Use a bold heading only for a rationale that runs several sentences. A single fact is a plain sentence.
 - This isn't the place for data specifics (see Data) or hard rules (see Constraints) — just what's necessary to understand them.
 - Litmus test: if a paragraph (or a sentence inside one) can be rephrased as a rule — "must," "can/cannot," "no X this phase" — it's a Constraint, not Additional Context. Move it into the matching Constraints category instead of leaving it here. What's left after that test should read as pure "why" or "what is this thing," with nothing actionable in it.
 
@@ -208,6 +212,8 @@ This feature is divisive. Some coaches and runners find pace estimates useful, o
 Instructions:
 - List the non-obvious characteristics of the underlying data itself — not rules you've already decided (see Constraints), and not why a decision was made (see Additional Context). These are facts about how the data behaves that the design has to account for.
 - Order the items by importance — most important first, descending from there — as a numbered list, not bullets, so the ranking is visible at a glance. Don't group by category or chronology instead.
+- Write every item in plain terms. Don't use shorthand, nicknames, or coined terms (e.g. "the skip rule") unless the term is spelled out where it's first used. If an item depends on a rule from Constraints, restate the rule in plain words and point to it ("see Behavior").
+- Describe the data, not the screen — "most runs qualify for only a few race distances", not "most estimate tables have a few rows." When a fact is easier to grasp with an example, add a small table of worked cases under the item instead of a longer explanation.
 - Each number leads with a short **bolded** statement of the fact. Follow it with sub-bullets for the supporting detail — an example value, why it's true, what it implies for the design. Skip the sub-bullets only when the bolded line needs no elaboration.
 
 Template:

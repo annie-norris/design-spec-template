@@ -13,7 +13,8 @@
 | Research Status | Definition |
 | Handoff Due Date | 2026-10-23 |
 | Handoff recipient | Web and mobile app developers |
-| Handoff Link | Link to the current design file |
+| Handoff Link | None yet |
+| Figma File | [Pace Estimates](https://www.figma.com/design/example) |
 
 | Role | Status |
 | :---- | :---- |
@@ -23,7 +24,7 @@
 
 ## Problem Statement
 
-After a strong training run, runners regularly ask coaches and club-mates what that effort would mean at another race distance, and the answers they get are inconsistent guesses. Runners can't plan race goals with confidence, coaches field the same question again and again, and club members comparing results have no shared reference point. Competitor apps already show this, and it is one of the most requested features in Stride's feedback channel.
+A runner who has just finished a strong training run has to guess what that effort means at another race distance, usually by asking a coach or club-mate and getting a different answer each time. No view currently answers "what could I run in a 10K off this?"
 
 ## User Stories
 
@@ -42,12 +43,11 @@ After a strong training run, runners regularly ask coaches and club-mates what t
 
 ## Deliverables
 
-A collapsible Pace Estimates section at the bottom of the existing activity detail screen.
-
-- New section added to an existing screen; nothing is replaced.
-- **Collapsible section** — sits last in the activity detail, closed by default.
-- **Estimate table** — the runner's actual time beside an estimated range for each other race distance.
-- **Empty states** — one for activities that will never get an estimate, one for activities still waiting on one.
+- **Activity detail (existing)** — what a single run suggests about the runner's pace at other race distances
+   - The activity detail already exists; only a section is added at the bottom.
+   - **Pace Estimates section** — collapsible, sits last, closed by default (see Constraints › Structural).
+   - **Estimate table** — the runner's actual time beside an estimated range for each other race distance.
+   - **Empty states** — one for activities that will never get an estimate, one for activities still waiting on one (see Constraints › States).
 
 ## Success & Failure Criteria
 
@@ -76,6 +76,8 @@ A collapsible Pace Estimates section at the bottom of the existing activity deta
 > Whether STR-388 will be final before this sprint starts is unconfirmed — check with PM.
 
 ## Additional Context
+
+Runners can't plan race goals with confidence without this, coaches field the same question again and again, and club members comparing results have no shared reference point. Competitor apps already show it, and it is one of the most requested features in Stride's feedback channel.
 
 Pace estimates predict a finish-time range at other race distances from a single run. They are widely used in running apps, but some coaches think they are misleading because they ignore terrain, weather, and fatigue. That is why the section sits last and arrives closed — a runner finds it only if they go looking. The placement is a decision, not an oversight.
 
